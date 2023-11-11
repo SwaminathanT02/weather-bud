@@ -1,0 +1,76 @@
+<!-- Updated index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Bud</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+
+    <div class="container my-5">
+        <div class="card p-5 mx-auto" style="max-width: 1000px; min-width: 400px;">
+            <header class="text-center mb-4 shadow rounded">
+                <h1 class="display-5 text-light">Weather Bud</h1>
+            </header>
+            <form action="/send-request" method="POST" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="city" class="form-control" placeholder="Enter City" aria-label="City" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Get Weather</button>
+                </div>
+            </form>
+            
+            <% if(locals.cityData && locals.cityData[0] && locals.weather && locals.apiKey){ %>
+                <div class="card bg-light mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary text-center">Your City Details</h3>
+                        <ul class="list-unstyled text-center">
+                            <li><strong>City:</strong> <%= cityData[0].name %></li>
+                            <li><strong>State:</strong> <%= cityData[0].state %></li>
+                            <li><strong>Country:</strong> <%= cityData[0].country %></li>
+                            <li><strong>Latitude:</strong> <%= cityData[0].lat %></li>
+                            <li><strong>Longitude:</strong> <%= cityData[0].lon %></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary mb-3 text-center">Weather Info</h3>
+                        <div id="openweathermap-widget-11"></div>
+                        <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+                        <script>
+                            window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+                            window.myWidgetParam.push({
+                                id: 15,
+                                cityid: '<%= weather.id %>',
+                                appid: '<%= apiKey %>',
+                                units: 'metric',
+                                containerid: 'openweathermap-widget-11'
+                            });
+
+                            (function() {
+                                var script = document.createElement('script');
+                                script.async = true;
+                                script.charset = "utf-8";
+                                script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(script, s);
+                            })();
+                        </script>
+                    </div>
+                </div>
+            <% } else if(locals.error){ %>
+                <div class="alert alert-danger mt-4" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

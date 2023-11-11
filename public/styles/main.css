@@ -1,0 +1,60 @@
+/* main.css */
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+header {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+}
+
+.city-info, .weather-info {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.city-info ul {
+    padding: 0;
+}
+
+.city-info li, .weather-info h3 {
+    margin-bottom: 10px;
+}
+
+/* Custom button styling */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #bb2d3b;
+}
